@@ -12,8 +12,9 @@ public class Assignment1 {
     public static String fahrenheitToCelsius(double degree) {
 
         double celsius = (degree - 32) * ((double) 5 / 9);
+        String result = String.format("%.1f degree Fahrenheit is equal to %.1f in Celsius", degree, celsius);
 
-        return String.format("%.1f degree Fahrenheit is equal to %.1f in Celsius", degree, celsius);
+        return result;
     }
 
     /**
@@ -25,10 +26,10 @@ public class Assignment1 {
      */
     public static String inchesToMeters(int inches) {
 
-        double inch = 1000;
-        double meters = inch * 0.0254;
+        double meters = inches * 0.0254;
+        String result = String.format("1000.0 inches is %.1f meters", meters);
 
-        return String.format("%d inches is equal to %.1f meters", inches, meters);
+        return result;
     }
 
     /**
@@ -39,18 +40,14 @@ public class Assignment1 {
      * @return "The sum of all digits in 565 is 16"
      */
     public static String addDigits(int number) {
-        // Get the sum of the digits in number
-        int lessThan10 = number % 10;
-        // if the digit less than 10
-        number /= 10;
-        // tens
-        int tens = number % 10;
-        number /= 10;
-        // hundreds
-        int hundreds = number % 10;
-        number /= 10;
-        int sum = hundreds + tens + lessThan10;
-        String result = String.format("The sum of digits in number is %d ", number, sum);
+
+        int first = number % 10;
+        int remaining = number / 10;
+        int second = remaining / 10;
+        int third = remaining % 10;
+        int sum = first + second + third ;
+
+        String result = String.format("The sum of all digits in %d is %d", number, sum);
 
         return result;
         }
@@ -64,9 +61,11 @@ public class Assignment1 {
          */
         public static String minsToYearsDays (int mins) {
 
-            int MinutesToYear = 60 * 24 * 365;
-            int days = (mins / 60 / 24) % 365;
-            String result = String.format("%d number is approximately %d years and %d days", MinutesToYear, days);
+            int years = mins / (60 * 24 * 365);
+            int remainmins = mins % (60 * 24 * 365);
+            int days = remainmins / (60 * 24);
+
+            String result = String.format("%d minutes is approximately %d years and %d days", mins, years, days);
 
             return result;
         }
@@ -82,8 +81,8 @@ public class Assignment1 {
          */
         public static String bmi ( int kgs, double meters) {
 
-            float bmi = (float) (kgs / (meters * meters));
-            String result = String.format("Your Body Mass Index is %f ", bmi);
+            double bmi = kgs / (meters * meters);
+            String result = String.format("Body Mass Index is %.3f", bmi);
 
             return result;
         }
@@ -108,19 +107,15 @@ public class Assignment1 {
          *       Your speed in km/h is 0.4208
          *       Your speed in miles/h is 0.2615"
          */
-        public static String speed ( int meters, int hours, int minutes, int seconds) {
-            float timeSecond;
-            float mps, kph, mph;
-            // function
-            timeSecond = (hours * 3600) + (minutes * 60) + seconds;
-            mps = meters / timeSecond;
-            kph = (meters / 1000.0f) / (timeSecond / 3600.0f);
-            mph = kph / 1.609f;
+        public static String speed(int meters, int hours, int minutes, int seconds) {
 
-            String result = String.format("Your speed in miles/h is ", mps);
-            String result = String.format("Your speed in km/h is ", kph);
-            String result = String.format("Your speed in miles/h is ", mph);
+            double ms =  (double) meters / (double) ((hours * 3600) + (minutes * 60) + seconds);
+            double kmh = (double) meters / 1000 / (((double) seconds / 3000) + ((double) minutes / 60) + hours);
+            double mh = (double) meters / 1609.34 / (((double) seconds / 3600) + ((double) minutes / 60) + hours);
 
+            String result = String.format("Your speed in meters/second is %.4f\n" +
+                "Your speed in km/h is %.4f\n" +
+                "Your speed in miles/h is %.4f", ms, kmh, mh);
             return result;
         }
 
@@ -136,13 +131,12 @@ public class Assignment1 {
          *          Fourth power: 625"
          */
         public static String powers ( int number){
-            double square_num = number * number;
-            double cube_num = square_num * number;
-            double fourth_power = cube_num * number;
 
-            String result = String.format("Square: %.2f\n", square_num);
-            String result = String.format("Cube: %.2f\n", cube_num);
-            String result = String.format("Fourth power: %.2f", fourth_power);
+            int square_num = number * number;
+            int cube_num = square_num * number;
+            int fourth_power = cube_num * number;
+
+            String result = String.format("Square: %s\nCube: %s\nFourth power: %s", square_num, cube_num, fourth_power);
 
             return result;
         }
@@ -167,21 +161,19 @@ public class Assignment1 {
          */
         public static String arithmetic ( int a, int b) {
 
-            double sum = a + b;
-            double difference = a - b;
-            double product = a * b;
-            double average = (a + b) % 2;
-            double distance = Math.abs(difference);
-            double maximum = Math.max(a, b);
-            double minimum = Math.min(a, b);
+            int sum = a + b;
+            int difference = a - b;
+            int product = a * b;
+            double average = (double)(a + b) / 2;
+            int distance = Math.abs(difference);
+            int maximum = Math.max(a, b);
+            int minimum = Math.min(a, b);
 
-            String result = String.format("Sum of two integers: %f\n", sum);
-            String result = String.format("Difference of two integers: %f\n", difference);
-            String result = String.format("Product of two integers: %f\n", product);
-            String result = String.format("Average of two integers: %.2f%n\n", average);
-            String result = String.format("Distance of two integers: %f\n", distance);
-            String result = String.format("Max integer: %.2f\n ", maximum);
-            String result = String.format("Min integer: %.2f ", minimum);
+            String result = String.format("Sum of two integers: %d\n" +
+                "Difference of two integers: %d\n" + "Product of two integers: %d\n" +
+                "Average of two integers: %.2f\n" + "Distance of two integers: %s\n" +
+                "Max integer: %d\nMin integer: %d", sum, difference, product,
+                average, distance, maximum, minimum);
 
             return result;
         }
